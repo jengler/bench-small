@@ -1,91 +1,80 @@
 {
   "datasets": [
     {
-      "name": "temp_dataset_name",
-      "displayName": "databricks_docs_chunked__081200bd29f7406e86ef014478a71350",
+      "name": "90a78719",
+      "displayName": "taxi analysis",
       "queryLines": [
-        "SELECT * FROM rag.studio.databricks_docs_chunked__081200bd29f7406e86ef014478a71350"
+        "USE CATALOG `main`;",
+        "USE SCHEMA `default`;",
+        "",
+        "SELECT",
+        "  T.pickup_zip,",
+        "  T.dropoff_zip,",
+        "  T.route as `Route`,",
+        "  T.frequency as `Number Trips`,",
+        "  T.total_fare as `Total Revenue`",
+        "FROM",
+        "  (",
+        "    SELECT",
+        "      pickup_zip,",
+        "      dropoff_zip,",
+        "      concat(pickup_zip, '-', dropoff_zip) AS route,",
+        "      count(*) as frequency,",
+        "      SUM(fare_amount) as total_fare",
+        "    FROM",
+        "      `samples`.`nyctaxi`.`trips`",
+        "    GROUP BY",
+        "      1,",
+        "      2,",
+        "      3",
+        "  ) T",
+        "ORDER BY",
+        "  1 ASC"
+      ],
+      "catalog": "main",
+      "schema": "default"
+    },
+    {
+      "name": "bde10015",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        ""
       ]
     }
   ],
   "pages": [
     {
-      "name": "temp_page_name",
-      "displayName": "New Page",
+      "name": "a55c9962",
+      "displayName": "page1",
       "layout": [
         {
           "widget": {
-            "name": "temp_bar_chart_name",
+            "name": "f78871af",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "temp_dataset_name",
-                  "disaggregated": true
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "bar",
-              "encodings": {}
-            }
-          },
-          "position": {
-            "x": 3,
-            "y": 0,
-            "width": 3,
-            "height": 4
-          }
-        },
-        {
-          "widget": {
-            "name": "temp_text_box_name",
-            "multilineTextboxSpec": {
-              "lines": [
-                "",
-                "# Dashboard for databricks_docs_chunked__081200bd29f7406e86ef014478a71350 table",
-                "",
-                "The dashboard you created for rag.studio.databricks_docs_chunked__081200bd29f7406e86ef014478a71350 is ready!",
-                "",
-                "The widget to the right of this one allows you to generate a chart based on this dataset using natural language. Click the widget to start typing a description of the chart you'd like to see. Alternatively, you can edit any selected widget using the controls in the right panel.",
-                "",
-                "You can also edit, copy, or delete any widget on the canvas.",
-                "    "
-              ]
-            }
-          },
-          "position": {
-            "x": 0,
-            "y": 0,
-            "width": 3,
-            "height": 4
-          }
-        },
-        {
-          "widget": {
-            "name": "temp_table_name",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "temp_dataset_name",
+                  "datasetName": "90a78719",
                   "fields": [
                     {
-                      "name": "chunk_id",
-                      "expression": "`chunk_id`"
+                      "name": "pickup_zip",
+                      "expression": "`pickup_zip`"
                     },
                     {
-                      "name": "doc_uri",
-                      "expression": "`doc_uri`"
+                      "name": "dropoff_zip",
+                      "expression": "`dropoff_zip`"
                     },
                     {
-                      "name": "chunk_text",
-                      "expression": "`chunk_text`"
+                      "name": "Route",
+                      "expression": "`Route`"
                     },
                     {
-                      "name": "chunk_embedding",
-                      "expression": "`chunk_embedding`"
+                      "name": "Number Trips",
+                      "expression": "`Number Trips`"
+                    },
+                    {
+                      "name": "Total Revenue",
+                      "expression": "`Total Revenue`"
                     }
                   ],
                   "disaggregated": true
@@ -98,7 +87,8 @@
               "encodings": {
                 "columns": [
                   {
-                    "fieldName": "chunk_id",
+                    "fieldName": "pickup_zip",
+                    "numberFormat": "0",
                     "booleanValues": [
                       "false",
                       "true"
@@ -111,21 +101,22 @@
                     "linkTextTemplate": "{{ @ }}",
                     "linkTitleTemplate": "{{ @ }}",
                     "linkOpenInNewTab": true,
-                    "type": "string",
-                    "displayAs": "string",
+                    "type": "integer",
+                    "displayAs": "number",
                     "visible": true,
                     "order": 100000,
-                    "title": "chunk_id",
+                    "title": "pickup_zip",
                     "allowSearch": false,
-                    "alignContent": "left",
+                    "alignContent": "right",
                     "allowHTML": false,
                     "highlightLinks": false,
                     "useMonospaceFont": false,
                     "preserveWhitespace": false,
-                    "displayName": "chunk_id"
+                    "displayName": "pickup_zip"
                   },
                   {
-                    "fieldName": "doc_uri",
+                    "fieldName": "dropoff_zip",
+                    "numberFormat": "0",
                     "booleanValues": [
                       "false",
                       "true"
@@ -138,21 +129,21 @@
                     "linkTextTemplate": "{{ @ }}",
                     "linkTitleTemplate": "{{ @ }}",
                     "linkOpenInNewTab": true,
-                    "type": "string",
-                    "displayAs": "string",
+                    "type": "integer",
+                    "displayAs": "number",
                     "visible": true,
                     "order": 100001,
-                    "title": "doc_uri",
+                    "title": "dropoff_zip",
                     "allowSearch": false,
-                    "alignContent": "left",
+                    "alignContent": "right",
                     "allowHTML": false,
                     "highlightLinks": false,
                     "useMonospaceFont": false,
                     "preserveWhitespace": false,
-                    "displayName": "doc_uri"
+                    "displayName": "dropoff_zip"
                   },
                   {
-                    "fieldName": "chunk_text",
+                    "fieldName": "Route",
                     "booleanValues": [
                       "false",
                       "true"
@@ -169,17 +160,18 @@
                     "displayAs": "string",
                     "visible": true,
                     "order": 100002,
-                    "title": "chunk_text",
+                    "title": "Route",
                     "allowSearch": false,
                     "alignContent": "left",
                     "allowHTML": false,
                     "highlightLinks": false,
                     "useMonospaceFont": false,
                     "preserveWhitespace": false,
-                    "displayName": "chunk_text"
+                    "displayName": "Route"
                   },
                   {
-                    "fieldName": "chunk_embedding",
+                    "fieldName": "Number Trips",
+                    "numberFormat": "0",
                     "booleanValues": [
                       "false",
                       "true"
@@ -192,18 +184,46 @@
                     "linkTextTemplate": "{{ @ }}",
                     "linkTitleTemplate": "{{ @ }}",
                     "linkOpenInNewTab": true,
-                    "type": "complex",
-                    "displayAs": "json",
+                    "type": "integer",
+                    "displayAs": "number",
                     "visible": true,
                     "order": 100003,
-                    "title": "chunk_embedding",
+                    "title": "Number Trips",
                     "allowSearch": false,
-                    "alignContent": "left",
+                    "alignContent": "right",
                     "allowHTML": false,
                     "highlightLinks": false,
                     "useMonospaceFont": false,
                     "preserveWhitespace": false,
-                    "displayName": "chunk_embedding"
+                    "displayName": "Number Trips"
+                  },
+                  {
+                    "fieldName": "Total Revenue",
+                    "numberFormat": "0.00",
+                    "booleanValues": [
+                      "false",
+                      "true"
+                    ],
+                    "imageUrlTemplate": "{{ @ }}",
+                    "imageTitleTemplate": "{{ @ }}",
+                    "imageWidth": "",
+                    "imageHeight": "",
+                    "linkUrlTemplate": "{{ @ }}",
+                    "linkTextTemplate": "{{ @ }}",
+                    "linkTitleTemplate": "{{ @ }}",
+                    "linkOpenInNewTab": true,
+                    "type": "float",
+                    "displayAs": "number",
+                    "visible": true,
+                    "order": 100004,
+                    "title": "Total Revenue",
+                    "allowSearch": false,
+                    "alignContent": "right",
+                    "allowHTML": false,
+                    "highlightLinks": false,
+                    "useMonospaceFont": false,
+                    "preserveWhitespace": false,
+                    "displayName": "Total Revenue"
                   }
                 ]
               },
@@ -212,21 +232,22 @@
               "itemsPerPage": 25,
               "paginationSize": "default",
               "condensed": true,
-              "withRowNumber": false
+              "withRowNumber": false,
+              "frame": {
+                "title": "Table 1",
+                "showTitle": true
+              }
             }
           },
           "position": {
             "x": 0,
-            "y": 4,
-            "width": 6,
+            "y": 0,
+            "width": 3,
             "height": 6
           }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS"
     }
-  ],
-  "uiSettings": {
-    "theme": {}
-  }
+  ]
 }
